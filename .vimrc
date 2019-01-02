@@ -109,6 +109,13 @@ call plug#begin('~/dotfiles/.vim/plugged')
 	au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 	" ファイルをtree表示してくれる
 	Plug 'scrooloose/nerdtree'
+	Plug 'tpope/vim-fugitive'
+	Plug 'tpope/vim-rails'
+	Plug 'tomtom/tcomment_vim'
+	Plug 'tpope/vim-surround'
+	Plug 'vim-scripts/AnsiEsc.vim'
+	Plug 'bronson/vim-trailing-whitespace'
+	Plug 'KohPoll/vim-less'
 	Plug 'Shougo/neomru.vim'
 	Plug 'nathanaelkane/vim-indent-guides'
 	Plug 'vim-scripts/AnsiEsc.vim'
@@ -116,3 +123,4 @@ call plug#begin('~/dotfiles/.vim/plugged')
 call plug#end()
 
 let g:indent_guides_enable_on_vim_startup=1
+filetype on
