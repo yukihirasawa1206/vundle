@@ -1,18 +1,12 @@
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"vim-plugのディレクトリが見つからなければインストール
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('vim_starting')
-  set rtp+=~/.vim/plugged/vim-plug
-  if !isdirectory(expand('~/dotfiles/.vim/plugged/vim-plug'))
-    echo 'install vim-plug...'
-    call system('mkdir -p ~/dotfiles/.vim/plugged/vim-plug')
-    call system('git clone https://github.com/junegunn/vim-plug.git ~/dotfiles/.vim/plugged/vim-plug/autoload')
-  end
+	set rtp+=~/.vim/plugged/vim-plug
+	if !isdirectory(expand('~/dotfiles/.vim/plugged/vim-plug'))
+	echo 'install vim-plug...'
+		call system('mkdir -p ~/doffiles/.vim/plugged/vim-plug')
+		call system('git clone https://github.com/junegunn/vim-plug.git ~/dotfiles/.vim/plugged/vim-plug/autoload')
+	end
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/dotfiles/.vim/plugged')
 
 	Plug 'Shougo/unite.vim'
@@ -36,7 +30,7 @@ call plug#begin('~/dotfiles/.vim/plugged')
 
 	" ファイルをtree表示してくれる
 	Plug 'scrooloose/nerdtree'
-	Plug 'Shougo/neocomplete.vim'
+	" Plug 'Shougo/neocomplcache.vim'
 	Plug 'Shougo/neomru.vim'
 	Plug 'Shougo/unite.vim'
 	Plug 'tomasr/molokai'
@@ -63,8 +57,7 @@ call plug#begin('~/dotfiles/.vim/plugged')
 call plug#end()
 
 let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'unite']
 
 highlight Pmenu ctermbg=4
@@ -103,18 +96,19 @@ autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
  let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
   if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
-  endif
+ : endif
  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 "html閉じタグ自動補完
 "
 augroup MyXML
 	autocmd!
-	autocmd Filetype xml inoremap <buffer> </</<C-x><C-o>
-	autocmd Filetype html inoremap <buffer> </</<C-x><C-o>
+	autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
+	autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
+	autocmd Filetype eruby inoremap <buffer> </ </<C-x><C-o>
 augroup END
 
-let g:hi_insert ='highlight StatusLine guifg=darkblue guibg=yellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
+let g:hi_insert ='highlight StatusLine guifg=black guibg=yellow gui=none ctermfg=black ctermbg=yellow cterm=none'
 if has('syntax')
 	augroup InsertHook
 	autocmd!
@@ -163,23 +157,27 @@ if has('syntax')
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set encoding=utf-8
 set mouse=a
 set ttymouse=xterm2
 set belloff=all
 set tabstop=2
+set expandtab
 set shiftwidth=2
 set lines=50
 set noswapfile
 set ruler
-set cmdheight=2
+set cmdheight=3
 set background=dark
 set hlsearch
 nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
+set clipboard& clipboard^=unnamedplus
 set ignorecase
 set incsearch
 set smartcase
 set title
 set wildmenu wildmode=list:full
+set laststatus=2
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set statusline+=%{fugitive#statusline()}
 set number
@@ -188,6 +186,11 @@ set autoindent
 set smarttab
 set whichwrap=b,s,h,l,<,>,[,]
 set hidden
+set formatoptions+=mM
+set textwidth=80
+set guifont=Cica:h16
+set printfont=Cica:h12
+set ambiwidth=double
 highlight LineNr ctermfg=darkgray
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
