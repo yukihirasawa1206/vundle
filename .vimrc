@@ -232,13 +232,3 @@ nnoremap <silent>sQ :<C-u>bd<CR>
 nnoremap <silent>sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
 nnoremap <silent>sB :<C-u>Unite buffer -buffer-name=file<CR>
 nnoremap <silent>tr :<C-u>NERDTree<CR>
-" call submode#enter_with('bufmove', 'n','', 's>', '<C-w>>')
-" call submode#enter_with('bufmove', 'n','', 's<', '<C-w><')
-"	call submode#enter_with('bufmove', 'n','', 's+', '<C-w>+')
-"	call submode#enter_with('bufmove', 'n','', 's-', '<C-w>-')
-"	call submode#map('bufmove', 'n','', '>', '<C-w>>')
-"	call submode#map('bufmove', 'n','', '<', '<C-w><')
-"	call submode#map('bufmove', 'n','', '+', '<C-w>+')
-"	call submode#map('bufmove', 'n','', '-', '<C-w>-')
-
-
