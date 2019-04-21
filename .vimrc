@@ -9,7 +9,7 @@ endif
 
 call plug#begin('~/dotfiles/.vim/plugged')
   Plug 'Shougo/unite.vim'
-  noremap <C-P> :Unite buffer<CR>
+  noremap <C-B> :Unite buffer<CR>
   noremap <C-N> :Unite -buffer-name=file file<CR>
   noremap <C-Z> :Unite file_mru<CR>
   noremap :uff :<C-u>UniteWithBufferDir file -buffer-name=file<CR>
@@ -21,6 +21,8 @@ call plug#begin('~/dotfiles/.vim/plugged')
   au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
   Plug 'tpope/vim-surround'
+  Plug 'slim-template/vim-slim'
+  Plug 'kana/vim-submode'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'Shougo/neomru.vim'
@@ -48,11 +50,15 @@ call plug#begin('~/dotfiles/.vim/plugged')
   Plug 'alvan/vim-closetag'
 call plug#end()
 
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+
 let g:closetag_filenames = '*.html, *.erb'
 let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level = 1
+let g:indent_guides_start_level = 2
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'unite']
-
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=darkgray
+let g:indent_guides_color_change_percent = 30
 highlight Pmenu ctermbg=4
 highlight PmenuSel ctermbg=1
 highlight PMenuSbar ctermbg=4
@@ -68,6 +74,10 @@ let g:neocomplcache_enable_camel_case_completion  =  1
 let g:neocomplcache_enable_auto_select = 1
 let g:neocomplcache_max_list = 20
 let g:neocomplcache_min_syntax_length = 3
+
+autocmd QuickFixCmdPost *grep* cwindow
+set statusline+=%{fugitive#statusline()}
+
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
  if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
@@ -129,6 +139,11 @@ if has('syntax')
 endif
 
 set encoding=utf-8
+set backspace=indent,eol,start
+set columns=143
+set modifiable
+set write
+set cursorline
 set mouse=a
 set ttymouse=xterm2
 set belloff=all
@@ -157,9 +172,8 @@ set smarttab
 set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 set formatoptions+=mM
+set guifont=SF\ Mono\ Bold:h14
 set textwidth=80
-set guifont=Cica:h16
-set printfont=Cica:h12
 set ambiwidth=double
 highlight LineNr ctermfg=darkgray
 let &t_SI.="\e[5 q"
@@ -170,6 +184,7 @@ set t_Co=256
 colorscheme iceberg
 filetype on
 
+tnoremap <Esc> <C-\><C-n>
 inoremap <C-a> <Esc>^
 inoremap <C-e> <Esc>$
 map <C-a> <Esc>^
@@ -204,3 +219,12 @@ nnoremap <silent>sQ :<C-u>bd<CR>
 nnoremap <silent>sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
 nnoremap <silent>sB :<C-u>Unite buffer -buffer-name=file<CR>
 nnoremap <silent>tr :<C-u>NERDTree<CR>
+
+call submode#enter_with('bufmove', 'n', '', 's<', '<C-w>>')
+call submode#enter_with('bufmove', 'n', '', 's>', '<C-w><')
+call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
+call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
+call submode#map('bufmove', 'n', '', '<', '<C-w>>')
+call submode#map('bufmove', 'n', '', '>', '<C-w><')
+call submode#map('bufmove', 'n', '', '+', '<C-w>+')
+call submode#map('bufmove', 'n', '', '-', '<C-w>-')
